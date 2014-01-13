@@ -68,7 +68,8 @@ var Board = Backbone.Model.extend({
 });
 
 
-var BoardView = Backbone.View.extend({
+// Manages view and game loop (see cellClicked).
+var BoardViewController = Backbone.View.extend({
   el: "#board-view",
 
   className: "board-view",
@@ -79,7 +80,6 @@ var BoardView = Backbone.View.extend({
 
   initialize: function() {
     this.currentPlayer = 'A';
-    this.listenTo(this.model, "change", this.render);
   },
 
   render: function() {
@@ -87,10 +87,21 @@ var BoardView = Backbone.View.extend({
   },
 
   cellClicked: function(ev) {
-    var x, y;
+    var x, y, winner;
+
     x = $(ev.currentTarget).data('x');
     y = $(ev.currentTarget).data('y');
-    this.model.set(x, y, this.currentPlayer);
+
+    // Update model
+    this.model.setCell(x, y, this.currentPlayer);
+
+    // Update view
+    $(ev.currentTarget).text(this.currentPlayer);
+    
+    if (winner = this.model.isWon()) {
+      alert("Player " + winner);
+    }
+
     this.togglePlayer();
   },
 
@@ -105,6 +116,6 @@ var BoardView = Backbone.View.extend({
 
 $(function() {
   window.MainBoard = new Board({ size: DEFAULT_SIZE });
-  window.MainBoardView = new BoardView({ model: window.MainBoard });
+  window.MainBoardView = new BoardViewController({ model: window.MainBoard });
   MainBoardView.render();
 });
