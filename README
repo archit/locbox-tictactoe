@@ -1,3 +1,11 @@
-tictactoe.js
-
+tictactoe.js README
+-------------------
 A javascript implementation of a TicTacToe
+
+Author: Archit Baweja <architbaweja@gmail.com>
+
+Dependencies
+------------
+jQuery
+Underscore.js
+Backbone.js
