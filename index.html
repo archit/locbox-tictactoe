@@ -1,5 +1,33 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>TicTacToe.js</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+    <link rel="stylesheet" href="app.css">
+    <script src="app.js"></script>
+
+    <script type="text/template" id="board-view-tmpl">
+      <table>
+      <% _.times(size, function(row) { %>
+        <tr>
+        <% _.times(size, function(col) { %>
+          <td class="cell-view" data-x="<%= col %>" data-y="<%= row %>"></td>
+        <% }); %>
+        </tr>
+      <% }); %>
+      </table>
+    </script>
+
+  </head>
+
   <body>
     Hello, Tic Tac Toe
+    <div id="board-view">
+    </div>
   </body>
 </html>

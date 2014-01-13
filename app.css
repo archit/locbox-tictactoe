@@ -1,0 +1,10 @@
+#board-view {
+    border: solid thin black;
+    width: 132px;
+}
+
+td.cell-view {
+    width: 40px;
+    height: 40px;
+    border: solid thin black;
+}
