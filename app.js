@@ -24,25 +24,35 @@ var Board = Backbone.Model.extend({
   },
 
   checkRow: function(rowNumber) {
-    var rowOwner = this.getCell(0, rowNumber);
-    for (var i = 0; i < this.get('size'); i++) {
+    var col0 = this.getCell(0, rowNumber);
+    if (!col0) {
+      return col0;
+    }
+
+    for (var i = 1; i < this.get('size'); i++) {
       var currCol = this.getCell(i, rowNumber);
-      if (currCol != undefined && currCol != rowOwner) {
-        return currCol
+      if (currCol == undefined || currCol != col0) {
+        return false;
       }
     }
-    return rowOwner;
+
+    return col0;
   },
 
   checkCol: function(colNumber) {
-    var colOwner = this.getCell(colNumber, 0);
-    for (var i = 0; i < this.get('size'); i++) {
+    var row0 = this.getCell(colNumber, 0);
+    if (!row0) {
+      return row0;
+    }
+
+    for (var i = 1; i < this.get('size'); i++) {
       var currRow = this.getCell(colNumber, i);
-      if (currRow != undefined && currRow != colOwner) {
+      if (currRow == undefined || currRow != row0) {
         return currRow;
       }
     }
-    return colOwner;
+
+    return row0;
   },
 
   getCell: function(x, y) {
@@ -99,7 +109,7 @@ var BoardViewController = Backbone.View.extend({
     $(ev.currentTarget).text(this.currentPlayer);
     
     if (winner = this.model.isWon()) {
-      alert("Player " + winner);
+      alert("Player " + winner + " is the Winner!");
     }
 
     this.togglePlayer();
